@@ -1,15 +1,28 @@
-import { grantPermission, cwebp } from "./src/index"
+import express from 'express'
+import cors from 'cors'
+import multer from 'multer'
+import { grantPermission, cwebp } from './src/index'
+const app = express()
+const port = 8000
 
-grantPermission()
+app.use(cors())
 
-const converter = async () => {
-    try {
-        const result = await cwebp("./images/ts-logo-256.png", "./images/ts-logo-256.webp", "-q 80");
-        console.log(result);
-    } catch (error) {
-        console.error(error)
-    }
-}
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, `${__dirname}/images`)
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + Math.round(Math.random() * 1e9)
+    cb(null, `${uniqueSuffix}.${file.mimetype.split('/')[1]}`)
+  }
+})
 
-converter()
+const upload = multer({ storage })
 
+app.post('/upload', upload.any(), (req, res) => {
+  res.status(200)
+})
+
+app.listen(port, () => {
+  console.log(`⚡️[server]: Server is running at http://localhost:${port}`)
+})

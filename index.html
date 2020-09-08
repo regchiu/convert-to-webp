@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Convert to webp</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/filepond/dist/filepond.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css"
+    />
+  </head>
+
+  <body>
+    <div id="app">
+      <div class="container">
+        <file-pond
+          class="file-pond"
+          ref="pond"
+          label-idle="Drop images here or <span class='filepond--label-action'>Browse</span>"
+          :allow-multiple="true"
+          accepted-file-types="image/jpeg, image/png"
+          :files="images"
+          :server="server"
+          :instant-upload="false"
+        ></file-pond>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/filepond-plugin-image-preview"></script>
+    <script src="https://unpkg.com/filepond-plugin-file-validate-type"></script>
+    <script src="https://unpkg.com/filepond"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vue-filepond"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+
+    <script type="module">
+      const app = new Vue({
+        el: '#app',
+        components: {
+          FilePond: vueFilePond.default(
+            FilePondPluginFileValidateType,
+            FilePondPluginImagePreview
+          )
+        },
+        data() {
+          return {
+            images: [],
+            server: {
+              process: 'http://localhost:8000/upload'
+            }
+          }
+        },
+        methods: {}
+      })
+    </script>
+    <style>
+      body {
+        box-sizing: border-box;
+      }
+
+      .container {
+        width: 100%;
+        height: 100%;
+      }
+
+      .file-pond {
+        margin: 0 auto;
+        max-width: 300px;
+      }
+    </style>
+  </body>
+</html>
