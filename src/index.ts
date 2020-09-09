@@ -1,5 +1,5 @@
-import * as childProcess from 'child_process'
-import * as fs from 'fs'
+import childProcess from 'child_process'
+import fs from 'fs'
 import { enwebp } from './enwebp'
 
 export const grantPermission = (): void => {

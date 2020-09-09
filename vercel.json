@@ -1,0 +1,11 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/index"
+    }
+  ],
+  "redirects": [
+    { "source": "/", "destination": "https://github.com/regchiu/convert-to-webp" }
+  ]
+}
