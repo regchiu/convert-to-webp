@@ -18,13 +18,25 @@
     <div id="app">
       <div class="container">
         <h1 class="title">Convert to webp</h1>
-        <button
-          ref="uploadBtn"
-          class="mouse-cursor-gradient-tracking"
-          @click="startProcess"
-        >
-          <span>Upload All</span>
-        </button>
+        <div class="upload-btn-container">
+          <button
+            ref="uploadBtn"
+            class="mouse-cursor-gradient-tracking upload-btn"
+            @click="startProcess"
+          >
+            <span>Upload</span>
+          </button>
+        </div>
+        <div class="download-btn-container">
+          <button
+            ref="downloadBtn"
+            v-show="showDownloadBtn"
+            class="mouse-cursor-gradient-tracking download-btn"
+            @click="download"
+          >
+            <span>Download</span>
+          </button>
+        </div>
         <file-pond
           class="file-pond"
           ref="pond"
@@ -35,7 +47,6 @@
           :server="server"
           :instant-upload="false"
           :max-files="10"
-          @processfile="onProcessfile"
         ></file-pond>
       </div>
     </div>
@@ -64,25 +75,43 @@
               timeout: 7000,
               process: '/upload',
               revert: null
-            }
+            },
+            showDownloadBtn: false
           }
         },
         methods: {
-          onProcessfile() {
-            window.open('http://localhost:8000/download')
-          },
-          startProcess() {
-            this.$refs.pond.processFiles()
+          async startProcess() {
+            if (this.$refs.pond.getFile()) {
+              try {
+                await this.$refs.pond.processFiles()
+                this.showDownloadBtn = true
+              } catch (error) {
+                console.log(error)
+              }
+            }
           },
           onmousemove() {
-            const btn = this.$refs.uploadBtn
-            btn.onmousemove = (e) => {
+            const uploadBtn = this.$refs.uploadBtn
+            const downloadBtn = this.$refs.downloadBtn
+            uploadBtn.onmousemove = (e) => {
               let rect = e.target.getBoundingClientRect()
               let x = e.clientX - rect.left
               let y = e.clientY - rect.top
-              btn.style.setProperty('--x', x + 'px')
-              btn.style.setProperty('--y', y + 'px')
+              uploadBtn.style.setProperty('--x', x + 'px')
+              uploadBtn.style.setProperty('--y', y + 'px')
             }
+            downloadBtn.onmousemove = (e) => {
+              let rect = e.target.getBoundingClientRect()
+              let x = e.clientX - rect.left
+              let y = e.clientY - rect.top
+              downloadBtn.style.setProperty('--x', x + 'px')
+              downloadBtn.style.setProperty('--y', y + 'px')
+            }
+          },
+          download(){
+            window.open('http://localhost:8000/download')
+            this.$refs.pond.removeFiles()
+            this.showDownloadBtn = false
           }
         },
         mounted() {
@@ -109,10 +138,12 @@
         margin: 1rem auto;
         max-width: 300px;
       }
-
-      .mouse-cursor-gradient-tracking {
+      .upload-btn-container {
+        margin-bottom: 10px;
+      }
+      .mouse-cursor-gradient-tracking.upload-btn {
         position: relative;
-        background: #7983ff;
+        background-color: #1976d2;
         padding: 0.5rem 1rem;
         font-size: 1.2rem;
         border: none;
@@ -120,6 +151,24 @@
         cursor: pointer;
         outline: none;
         overflow: hidden;
+        width: 150px;
+      }
+
+      .download-btn-container {
+        margin-bottom: 10px;
+      }
+
+      .mouse-cursor-gradient-tracking.download-btn {
+        position: relative;
+        background-color: #4caf50;
+        padding: 0.5rem 1rem;
+        font-size: 1.2rem;
+        border: none;
+        color: white;
+        cursor: pointer;
+        outline: none;
+        overflow: hidden;
+        width: 150px;
       }
 
       .mouse-cursor-gradient-tracking span {
