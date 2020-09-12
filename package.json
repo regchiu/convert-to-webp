@@ -23,7 +23,6 @@
   "scripts": {
     "start": "ts-node ./api/index.ts",
     "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node ./api/index.ts",
-    "build": "tsc",
     "test": "jest --coverage"
   },
   "repository": {
