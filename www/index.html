@@ -39,7 +39,7 @@
         </div>
         <file-pond
           class="file-pond"
-          ref="pond"
+          ref="pondRef"
           label-idle="Drop images here or <span class='filepond--label-action'>Browse</span>"
           :allow-multiple="true"
           accepted-file-types="image/jpeg, image/png"
@@ -81,9 +81,9 @@
         },
         methods: {
           async startProcess() {
-            if (this.$refs.pond.getFile()) {
+            if (this.$refs.pondRef.getFile()) {
               try {
-                await this.$refs.pond.processFiles()
+                await this.$refs.pondRef.processFiles()
                 this.showDownloadBtn = true
               } catch (error) {
                 console.log(error)
@@ -110,7 +110,7 @@
           },
           download(){
             window.open('http://localhost:8000/download')
-            this.$refs.pond.removeFiles()
+            this.$refs.pondRef.removeFiles()
             this.showDownloadBtn = false
           }
         },
