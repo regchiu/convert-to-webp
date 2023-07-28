@@ -74,7 +74,7 @@ app.get('/download', async (req, res) => {
     }
   } catch (error) {
     console.log(error)
-    throw new Error(error)
+    throw error
   }
 })
 
