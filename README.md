@@ -1,6 +1,6 @@
 # Convert to webp
 
-Convert the image to webp.
+Convert the image to webp using [Google WebP](https://developers.google.com/speed/webp).
 
 ## Setup
 
