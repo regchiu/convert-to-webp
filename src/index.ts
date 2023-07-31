@@ -11,7 +11,6 @@ export const grantPermission = (): void => {
 
 // convert image to webp
 export const cwebp = (inputImage: string, outputImage: string, options: string) => {
-
     const query = `${options} ${inputImage} -o ${outputImage}`
 
     return new Promise((resolve, reject) => {

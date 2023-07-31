@@ -26,8 +26,8 @@ app.get('/', (req, res) => {
 })
 
 app.post('/upload', upload.any(), (req, res) => {
-  const filename = (req.files as any)[0].filename
-  filenameList.push(filename)
+  const filenames = (req.files as Express.Multer.File[]).map(item => item.filename)
+  filenameList= filenameList.concat(filenames)
   res.status(200).json('OK')
 })
 
@@ -43,7 +43,7 @@ app.get('/download', async (req, res) => {
         await cwebp(
           path.join(__dirname, `../images/${file}`),
           path.join(__dirname, `../images/${webpFile}`),
-          '-q 80'
+          `-q ${req.query.q} -m ${req.query.m}`
         )
         webpFileList.push(webpFile)
         const data = fs.readFileSync(
