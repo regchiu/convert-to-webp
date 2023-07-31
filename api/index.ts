@@ -26,8 +26,10 @@ app.get('/', (req, res) => {
 })
 
 app.post('/upload', upload.any(), (req, res) => {
-  const filenames = (req.files as Express.Multer.File[]).map(item => item.filename)
-  filenameList= filenameList.concat(filenames)
+  const filenames = (req.files as Express.Multer.File[]).map(
+    (item) => item.filename
+  )
+  filenameList = filenameList.concat(filenames)
   res.status(200).json('OK')
 })
 

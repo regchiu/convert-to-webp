@@ -1,8 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
     <title>Convert to webp</title>
     <link
       rel="stylesheet"
@@ -23,19 +26,34 @@
           <br />
           <input
             v-model="quality"
-            type="range" 
-            id="quality" 
+            type="range"
+            id="quality"
             name="quality"
-            min="0" 
-            max="100" 
+            min="0"
+            max="100"
             list="quality-tickmarks"
-          >
+          />
           <datalist id="quality-tickmarks">
-            <option value="0" label="0"></option>
-            <option value="25" label="25"></option>
-            <option value="50" label="50"></option>
-            <option value="75" label="75"></option>
-            <option value="100" label="100"></option>
+            <option
+              value="0"
+              label="0"
+            ></option>
+            <option
+              value="25"
+              label="25"
+            ></option>
+            <option
+              value="50"
+              label="50"
+            ></option>
+            <option
+              value="75"
+              label="75"
+            ></option>
+            <option
+              value="100"
+              label="100"
+            ></option>
           </datalist>
         </div>
         <div class="compression-input">
@@ -43,18 +61,30 @@
           <br />
           <input
             v-model="compression"
-            type="range" 
-            id="compression" 
+            type="range"
+            id="compression"
             name="compression"
-            min="0" 
-            max="6" 
+            min="0"
+            max="6"
             list="compression-tickmarks"
-          >
+          />
           <datalist id="compression-tickmarks">
-            <option value="0" label="0"></option>
-            <option value="2" label="2"></option>
-            <option value="4" label="4"></option>
-            <option value="6" label="6"></option>
+            <option
+              value="0"
+              label="0"
+            ></option>
+            <option
+              value="2"
+              label="2"
+            ></option>
+            <option
+              value="4"
+              label="4"
+            ></option>
+            <option
+              value="6"
+              label="6"
+            ></option>
           </datalist>
         </div>
         <file-pond
@@ -98,8 +128,10 @@
           }
         },
         methods: {
-          handleProcessfiles(){
-            window.open(`http://localhost:8000/download?q=${this.quality}&m=${this.compression}`)
+          handleProcessfiles() {
+            window.open(
+              `http://localhost:8000/download?q=${this.quality}&m=${this.compression}`
+            )
           }
         }
       })
@@ -124,17 +156,17 @@
         writing-mode: vertical-lr;
         width: var(--width);
       }
-      
+
       option {
         padding: 0;
       }
 
-      input[type="range"] {
+      input[type='range'] {
         width: var(--width);
         margin: 0;
       }
 
-      input[type="range" i] {
+      input[type='range' i] {
         color: var(--text-color);
       }
 
