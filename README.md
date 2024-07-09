@@ -2,7 +2,7 @@
 
 Convert the image to WebP using [Google WebP](https://developers.google.com/speed/webp).
 
-## Setup
+## Setups
 
 Make sure to install the dependencies:
 
